@@ -1,0 +1,36 @@
+# Dependencies
+node_modules
+package-lock.json
+yarn.lock
+
+# Hardhat
+cache
+artifacts
+typechain-types
+
+# Environment variables
+.env
+
+# Build
+dist
+coverage
+coverage.json
+
+# Deployment
+deployments/*.json
+!deployments/.gitkeep
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs
