@@ -43,25 +43,25 @@ const Navbar: React.FC<NavbarProps> = ({ account, onDisconnect, onConnect }) => 
                   </div>
                 </Link>
               </motion.div>
-              <div className="hidden lg:flex items-center gap-3 text-sm text-slate-500 dark:text-slate-300">
+              {/* <div className="hidden lg:flex items-center gap-3 text-sm text-slate-500 dark:text-slate-300">
                 <span className="inline-flex items-center gap-2 rounded-full border border-slate-200/80 px-3 py-1 text-xs font-medium uppercase tracking-widest text-slate-600 dark:border-white/10 dark:text-slate-200">
                   Enterprise Ready
                 </span>
                 <span className="text-xs font-medium text-slate-500 dark:text-slate-400">
                   Audited contracts | SOC2 aligned operations
                 </span>
-              </div>
+              </div> */}
             </div>
 
-            <div className="flex items-center justify-between gap-4">
-              <div className="hidden md:flex items-center gap-1">
+            <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:gap-6 lg:flex-1">
+              <div className="hidden md:flex flex-1 items-center justify-center gap-1 order-2 lg:order-none">
                 {navItems.map((item) => (
                   <DesktopNavLink key={item.to} {...item} />
                 ))}
                 {account && <DesktopNavLink to="/create" label="Create" icon={<PlusCircle className="w-4 h-4" />} />}
               </div>
 
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-3 justify-between lg:justify-end order-1 lg:order-none">
                 {account ? (
                   <motion.div initial={{ scale: 0.9 }} animate={{ scale: 1 }} className="flex items-center gap-3">
                     <div className="flex items-center gap-2 rounded-full border border-slate-200 bg-white/80 px-4 py-2 text-sm font-medium text-slate-700 shadow-inner dark:border-white/10 dark:bg-slate-900/60 dark:text-slate-100">
@@ -98,13 +98,13 @@ const Navbar: React.FC<NavbarProps> = ({ account, onDisconnect, onConnect }) => 
                   </motion.button>
                 )}
 
-                <Link
+                {/* <Link
                   to="/create"
                   className="hidden md:inline-flex items-center gap-2 rounded-full border border-slate-200 px-5 py-2 text-sm font-semibold text-slate-700 hover:border-slate-900 hover:text-slate-900 dark:border-white/10 dark:text-slate-200 dark:hover:border-white/40"
                 >
                   Launch Poll
                   <ArrowUpRight className="h-4 w-4" />
-                </Link>
+                </Link> */}
               </div>
             </div>
           </div>
