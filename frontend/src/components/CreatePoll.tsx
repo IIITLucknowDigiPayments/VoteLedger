@@ -67,9 +67,9 @@ export default function CreatePoll({ onCreate, isCreating }: CreatePollProps) {
 
   return (
     <motion.div 
-      initial={{ opacity: 0, scale: 0.95 }}
+      initial={{ opacity: 0, scale: 0.97 }}
       animate={{ opacity: 1, scale: 1 }}
-      className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-8 rounded-2xl shadow-xl"
+      className="rounded-3xl border border-white/70 bg-white/95 p-8 shadow-2xl shadow-slate-900/5 dark:border-white/10 dark:bg-slate-950/70"
     >
       <div className="flex items-center gap-3 mb-6">
         <Sparkles className="w-6 h-6 text-indigo-500" />
@@ -87,7 +87,7 @@ export default function CreatePoll({ onCreate, isCreating }: CreatePollProps) {
             value={question}
             onChange={(e) => setQuestion(e.target.value)}
             placeholder="What would you like to ask?"
-            className="w-full p-4 border-2 border-gray-200 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-700 text-gray-800 dark:text-white focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 dark:focus:ring-indigo-900 transition-all outline-none"
+            className="w-full rounded-2xl border border-slate-200 bg-white/90 p-4 text-slate-900 focus:border-slate-900 focus:outline-none dark:border-white/10 dark:bg-slate-900/60 dark:text-white"
             disabled={isCreating}
           />
         </div>
@@ -115,7 +115,7 @@ export default function CreatePoll({ onCreate, isCreating }: CreatePollProps) {
                     value={option}
                     onChange={(e) => updateOption(index, e.target.value)}
                     placeholder={`Option ${index + 1}`}
-                    className="w-full pl-10 pr-4 py-3 border-2 border-gray-200 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-700 text-gray-800 dark:text-white focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 dark:focus:ring-indigo-900 transition-all outline-none"
+                    className="w-full rounded-2xl border border-slate-200 bg-white/90 pl-10 pr-4 py-3 text-slate-900 focus:border-slate-900 focus:outline-none dark:border-white/10 dark:bg-slate-900/60 dark:text-white"
                     disabled={isCreating}
                   />
                 </div>
@@ -124,7 +124,7 @@ export default function CreatePoll({ onCreate, isCreating }: CreatePollProps) {
                   whileTap={{ scale: 0.9 }}
                   type="button"
                   onClick={() => removeOption(index)}
-                  className="p-2 text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+                  className="rounded-full p-2 text-red-500 transition-colors hover:bg-red-50 disabled:cursor-not-allowed disabled:opacity-30 dark:hover:bg-red-500/10"
                   disabled={options.length <= 2 || isCreating}
                 >
                   <MinusCircle className="w-6 h-6" />
@@ -138,7 +138,7 @@ export default function CreatePoll({ onCreate, isCreating }: CreatePollProps) {
             whileTap={{ scale: 0.98 }}
             type="button"
             onClick={addOption}
-            className="mt-4 flex items-center gap-2 text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 font-medium transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+            className="mt-4 flex items-center gap-2 text-slate-700 hover:text-slate-900 dark:text-slate-200 dark:hover:text-white disabled:cursor-not-allowed disabled:opacity-30"
             disabled={options.length >= 5 || isCreating}
           >
             <PlusCircle className="w-5 h-5" />
@@ -161,7 +161,7 @@ export default function CreatePoll({ onCreate, isCreating }: CreatePollProps) {
           whileTap={{ scale: 0.98 }}
           type="submit"
           disabled={isCreating}
-          className="w-full bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white font-bold py-4 px-6 rounded-xl transition-all shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
+          className="w-full rounded-full bg-slate-900 py-4 px-6 text-sm font-semibold text-white shadow-lg shadow-indigo-500/30 transition-all hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-white dark:text-slate-900"
         >
           {isCreating ? (
             <span className="flex items-center justify-center gap-2">

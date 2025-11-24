@@ -8,7 +8,7 @@ export default function NotConnectedMessage() {
     <motion.div 
       initial={{ opacity: 0, scale: 0.95 }}
       animate={{ opacity: 1, scale: 1 }}
-      className="bg-gradient-to-br from-white to-indigo-50 dark:from-gray-800 dark:to-gray-900 p-10 rounded-2xl shadow-2xl text-center border-2 border-indigo-100 dark:border-indigo-900"
+      className="rounded-3xl border border-white/70 bg-white/90 p-10 text-center shadow-2xl shadow-slate-900/10 dark:border-white/10 dark:bg-slate-950/70"
     >
       <motion.div
         initial={{ scale: 0 }}

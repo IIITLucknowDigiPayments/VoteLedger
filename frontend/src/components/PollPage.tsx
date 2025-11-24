@@ -65,139 +65,152 @@ export default function PollPage({
 
   return (
     <motion.div 
-      initial={{ opacity: 0, scale: 0.95 }}
-      animate={{ opacity: 1, scale: 1 }}
-      className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-8 rounded-2xl shadow-xl"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      className="rounded-3xl border border-white/70 bg-white/95 p-8 shadow-2xl shadow-slate-900/5 dark:border-white/10 dark:bg-slate-950/70"
     >
-      {/* Header */}
-      <div className="mb-8">
-        <div className="flex justify-between items-start mb-4">
-          <h2 className="text-3xl font-bold text-gray-800 dark:text-white">{poll.question}</h2>
-          {poll.isActive ? (
-            <div className="flex items-center gap-2 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 px-4 py-2 rounded-full">
-              <CheckCircle2 className="w-5 h-5" />
-              <span className="font-semibold">Active</span>
-            </div>
-          ) : (
-            <div className="flex items-center gap-2 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400 px-4 py-2 rounded-full">
-              <XCircle className="w-5 h-5" />
-              <span className="font-semibold">Ended</span>
-            </div>
-          )}
-        </div>
-        
-        <div className="flex items-center gap-6 text-sm text-gray-600 dark:text-gray-400">
-          {isCreator && (
-            <div className="flex items-center gap-2">
-              <User className="w-4 h-4" />
-              <span className="font-medium">Created by you</span>
-            </div>
-          )}
-          
-          <div className="flex items-center gap-2">
-            <TrendingUp className="w-4 h-4" />
-            <span className="font-medium">Total Votes: {totalVotes}</span>
-          </div>
-        </div>
-      </div>
-
-      {/* Poll Options */}
-      <div className="space-y-5">
-        {poll.options.map((option, index) => {
-          const voteCount = poll.counts[index] || 0;
-          const percentage = totalVotes > 0 ? Math.round((voteCount / totalVotes) * 100) : 0;
-          
-          return (
-            <motion.div 
-              key={index}
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: index * 0.1 }}
-              className="bg-gradient-to-br from-gray-50 to-white dark:from-gray-700 dark:to-gray-800 p-5 rounded-xl border-2 border-gray-200 dark:border-gray-600 hover:border-indigo-300 dark:hover:border-indigo-600 transition-all"
-            >
-              <div className="flex justify-between items-center mb-3">
-                <span className="text-lg font-semibold text-gray-800 dark:text-white">{option}</span>
-                <div className="flex items-center gap-3">
-                  <span className="text-sm font-medium text-gray-600 dark:text-gray-400">
-                    {voteCount} votes
-                  </span>
-                  <span className="text-xl font-bold text-indigo-600 dark:text-indigo-400">
-                    {percentage}%
-                  </span>
-                </div>
+      <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr),320px]">
+        <section>
+          <div className="mb-8 space-y-4">
+            <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
+              <h2 className="text-3xl font-semibold text-slate-900 dark:text-white">{poll.question}</h2>
+              <div>
+                {poll.isActive ? (
+                  <div className="inline-flex items-center gap-2 rounded-full bg-emerald-100 px-4 py-2 text-sm font-semibold text-emerald-700 dark:bg-emerald-500/15 dark:text-emerald-300">
+                    <CheckCircle2 className="h-4 w-4" /> Active
+                  </div>
+                ) : (
+                  <div className="inline-flex items-center gap-2 rounded-full bg-slate-100 px-4 py-2 text-sm font-semibold text-slate-500 dark:bg-white/10 dark:text-slate-300">
+                    <XCircle className="h-4 w-4" /> Ended
+                  </div>
+                )}
               </div>
-              
-              <div className="relative w-full bg-gray-200 dark:bg-gray-600 rounded-full h-3 overflow-hidden">
-                <motion.div 
-                  initial={{ width: 0 }}
-                  animate={{ width: `${percentage}%` }}
-                  transition={{ duration: 0.8, ease: "easeOut", delay: index * 0.1 }}
-                  className="absolute top-0 left-0 h-full bg-gradient-to-r from-indigo-500 to-purple-600 rounded-full"
-                />
-              </div>
-              
-              {poll.isActive && currentAccount && (
-                <motion.button
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  onClick={() => onVote(poll.id, index)}
-                  disabled={isVoting}
-                  className="mt-4 w-full bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white py-3 px-4 rounded-lg font-medium shadow-md hover:shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                  {isVoting ? (
-                    <span className="flex items-center justify-center gap-2">
-                      <motion.div
-                        animate={{ rotate: 360 }}
-                        transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-                        className="w-4 h-4 border-2 border-white border-t-transparent rounded-full"
-                      />
-                      Voting...
-                    </span>
-                  ) : (
-                    <span className="flex items-center justify-center gap-2">
-                      <CheckCircle2 className="w-5 h-5" />
-                      Vote for this option
-                    </span>
-                  )}
-                </motion.button>
+            </div>
+            <div className="flex flex-wrap gap-4 text-sm text-slate-500 dark:text-slate-300">
+              <span className="inline-flex items-center gap-2">
+                <TrendingUp className="h-4 w-4" /> Total votes: {totalVotes}
+              </span>
+              {isCreator && (
+                <span className="inline-flex items-center gap-2">
+                  <User className="h-4 w-4" /> Created by you
+                </span>
               )}
+            </div>
+          </div>
+
+          <div className="space-y-5">
+            {poll.options.map((option, index) => {
+              const voteCount = poll.counts[index] || 0;
+              const percentage = totalVotes > 0 ? Math.round((voteCount / totalVotes) * 100) : 0;
+
+              return (
+                <motion.div 
+                  key={index}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: index * 0.08 }}
+                  className="rounded-2xl border border-slate-100 bg-white/80 p-5 shadow-inner shadow-slate-900/5 dark:border-white/10 dark:bg-slate-900/60"
+                >
+                  <div className="mb-3 flex items-center justify-between">
+                    <span className="text-lg font-semibold text-slate-900 dark:text-white">{option}</span>
+                    <div className="flex items-center gap-3 text-sm font-medium text-slate-500 dark:text-slate-300">
+                      <span>{voteCount} votes</span>
+                      <span className="text-base font-semibold text-indigo-600 dark:text-indigo-400">{percentage}%</span>
+                    </div>
+                  </div>
+                  <div className="relative h-2.5 w-full rounded-full bg-slate-200 dark:bg-white/10">
+                    <motion.div 
+                      initial={{ width: 0 }}
+                      animate={{ width: `${percentage}%` }}
+                      transition={{ duration: 0.8, ease: 'easeOut', delay: index * 0.08 }}
+                      className="absolute inset-y-0 left-0 rounded-full bg-gradient-to-r from-indigo-500 to-purple-600"
+                    />
+                  </div>
+
+                  {poll.isActive && currentAccount && (
+                    <motion.button
+                      whileHover={{ scale: 1.01 }}
+                      whileTap={{ scale: 0.98 }}
+                      onClick={() => onVote(poll.id, index)}
+                      disabled={isVoting}
+                      type="button"
+                      className="mt-4 w-full rounded-full border border-slate-200 px-4 py-3 text-sm font-semibold text-slate-700 hover:border-slate-900 hover:text-slate-900 dark:border-white/20 dark:text-slate-200 disabled:opacity-50"
+                    >
+                      {isVoting ? (
+                        <span className="flex items-center justify-center gap-2">
+                          <motion.div
+                            animate={{ rotate: 360 }}
+                            transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
+                            className="h-4 w-4 rounded-full border-2 border-slate-400 border-t-transparent"
+                          />
+                          Submitting...
+                        </span>
+                      ) : (
+                        <span className="flex items-center justify-center gap-2">
+                          <CheckCircle2 className="h-4 w-4" /> Cast vote
+                        </span>
+                      )}
+                    </motion.button>
+                  )}
+                </motion.div>
+              );
+            })}
+          </div>
+
+          {error && (
+            <motion.div 
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="mt-6 rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-600 dark:border-red-500/30 dark:bg-red-500/10 dark:text-red-300"
+            >
+              {error}
             </motion.div>
-          );
-        })}
+          )}
+
+          {!currentAccount && (
+            <motion.div 
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="mt-6 flex items-center gap-3 rounded-2xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-700 dark:border-amber-500/30 dark:bg-amber-500/10 dark:text-amber-300"
+            >
+              <BarChart3 className="h-5 w-5" /> Connect your wallet to participate in this ballot.
+            </motion.div>
+          )}
+
+          {!poll.isActive && (
+            <motion.div 
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="mt-6 flex items-center gap-3 rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-600 dark:border-white/10 dark:bg-white/5 dark:text-slate-300"
+            >
+              <XCircle className="h-5 w-5" /> Voting has been closed for this poll.
+            </motion.div>
+          )}
+        </section>
+
+        <aside className="space-y-5 rounded-2xl border border-slate-100 bg-slate-50/80 p-6 text-sm text-slate-600 shadow-inner shadow-slate-900/5 dark:border-white/10 dark:bg-slate-900/60 dark:text-slate-300">
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-[0.4em] text-slate-500 dark:text-slate-400">Snapshot</p>
+            <div className="mt-3 space-y-2">
+              <div className="flex items-center justify-between">
+                <span>Status</span>
+                <span className="font-semibold text-slate-900 dark:text-white">{poll.isActive ? 'Active' : 'Closed'}</span>
+              </div>
+              <div className="flex items-center justify-between">
+                <span>Total votes</span>
+                <span className="font-semibold text-slate-900 dark:text-white">{totalVotes}</span>
+              </div>
+              <div className="flex items-center justify-between">
+                <span>Creator</span>
+                <span className="truncate text-right font-semibold text-slate-900 dark:text-white">{poll.creator}</span>
+              </div>
+            </div>
+          </div>
+          <div className="rounded-2xl border border-slate-200/70 bg-white/70 p-4 text-xs text-slate-500 dark:border-white/10 dark:bg-white/5 dark:text-slate-300">
+            Every interaction is notarized on-chain. Download the audit file from the Polls list for offline archiving.
+          </div>
+        </aside>
       </div>
-      
-      {/* Messages */}
-      {error && (
-        <motion.div 
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="mt-6 bg-red-50 dark:bg-red-900/20 border-2 border-red-200 dark:border-red-800 text-red-600 dark:text-red-400 px-4 py-3 rounded-xl"
-        >
-          {error}
-        </motion.div>
-      )}
-      
-      {!currentAccount && (
-        <motion.div 
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="mt-6 bg-amber-50 dark:bg-amber-900/20 border-2 border-amber-200 dark:border-amber-800 text-amber-700 dark:text-amber-400 px-4 py-3 rounded-xl flex items-center gap-2"
-        >
-          <BarChart3 className="w-5 h-5" />
-          Connect your wallet to vote on this poll.
-        </motion.div>
-      )}
-      
-      {!poll.isActive && (
-        <motion.div 
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="mt-6 bg-gray-50 dark:bg-gray-700 border-2 border-gray-200 dark:border-gray-600 text-gray-600 dark:text-gray-400 px-4 py-3 rounded-xl flex items-center gap-2"
-        >
-          <XCircle className="w-5 h-5" />
-          This poll has ended and is no longer accepting votes.
-        </motion.div>
-      )}
     </motion.div>
   );
 }
