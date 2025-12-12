@@ -141,7 +141,7 @@ function AppContent() {
         onConnect={handleConnectFromNavbar}
       />
 
-      <main className="container mx-auto px-4 py-12 lg:py-16 relative z-10">
+      <main className="container mx-auto px-4 pt-32 pb-12 lg:pt-36 lg:pb-16 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
